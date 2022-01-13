@@ -17,3 +17,6 @@ print(moyenneL1)
 
 EcartTypeL1=stat.ecartType(L1)
 print(EcartTypeL1)
+
+tracerCourbe=stat.courbe(T,L1)
+print(tracerCourbe)
