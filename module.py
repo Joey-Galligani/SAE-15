@@ -1,6 +1,8 @@
 # Module Fonction
 
 from math import sqrt
+import requests
+from lxml import etree
 
 #from matplotlib import pylab
 #from pylab import *
@@ -29,3 +31,22 @@ def ecartType(L) :
 #
 #		a=show()
 #	return a 
+
+def afficherHTML(a) :
+	for i in range (len(a)) :
+		b='https://data.montpellier3m.fr/sites/default/files/ressources/'+a[i]+'.xml'
+		z=[b]
+		print(z)
+		response=requests.get(z[i])
+		print(response.text)
+		t=str(a[i])+'.txt'
+		tree = etree.parse(t)
+		for user in tree.xpath("Name"):
+			print('Nom du parking :',user.text)
+		for user in tree.xpath("Total"):
+			print('Nombre total de places :',user.text)
+		for user in tree.xpath("Free"):
+			print('Nombre de places libres :',user.text)
+	f1=open(t,"w", encoding='utf8')
+	f1.write(response.text)
+	f1.close()
